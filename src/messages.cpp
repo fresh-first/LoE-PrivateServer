@@ -577,8 +577,11 @@ void sendChatMessage(Player* player, QString message, QString author, quint8 cha
     data[0] = 0xf; // RPC ID
     data[1] = chatType;
     data += stringToData(author);
+    data += stringToData(author);
     data += stringToData(message);
     data += idAndAccess;
+    data += uint32ToData(0); // Datetime
+    data += uint32ToData(0); // Datetime
 
     sendMessage(player,MsgUserReliableOrdered4,data); // Sends a 46
 }
