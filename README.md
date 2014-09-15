@@ -117,7 +117,4 @@ Notes (as of Babscon 2014 RC2):
 - Cottage has no textures nor visible sky box, and the warp points aren't working properly. Walking outside of window will cause you to fall into void
 - Tartarus was excluded from the game build. Accessing it will cause game to display loading screen indefinitely. The only way to get out is to delete your character entirely
 - PM-Lvl1 is the Pony Muncher game (Pac-Man clone) with unfinished functionality. You cannot escape it by normal means
-- If you land in the void after loading a scene, try "/stuck" in the chat (and either add an issue on GitHub or complain at mlpfightingismagic@gmail.com)
-
-<img src="https://f.cloud.github.com/assets/5155966/1389911/6503cd02-3be3-11e3-987f-98611a94a106.jpg"/>
-(This screenshot was taken on an older version of the game and private server)
+- If you land in the void after loading a scene, try "/stuck" in the chat (and either add an issue on GitHub or complain at barrdetwix@gmail.com)
