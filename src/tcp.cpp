@@ -5,7 +5,7 @@
 #include "settings.h"
 #include <QCryptographicHash>
 
-#define DEBUG_LOG false
+#define DEBUG_LOG 0
 
 using namespace Settings;
 

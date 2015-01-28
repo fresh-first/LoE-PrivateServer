@@ -2,6 +2,7 @@
 #define DATATYPE_H
 
 #include <qglobal.h>
+#include <stdint.h>
 
 class UVector
 {

@@ -15,7 +15,7 @@
 #include "settings.h"
 #endif
 
-#define DEBUG_LOG false
+#define DEBUG_LOG 0
 
 QList<Player*> Player::tcpPlayers; // Used by the TCP login server
 QList<Player*> Player::udpPlayers; // Used by the UDP game server

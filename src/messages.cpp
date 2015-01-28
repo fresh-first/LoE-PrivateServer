@@ -8,7 +8,7 @@
 #include "log.h"
 #include "scene.h"
 
-#define DEBUG_LOG false
+#define DEBUG_LOG 0
 
 // File-global game-entering mutex (to prevent multiple instantiates)
 static QMutex levelLoadMutex;
