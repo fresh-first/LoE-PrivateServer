@@ -4,7 +4,7 @@
 #include <QString>
 #include <QMap>
 
-struct Animation
+class Animation
 {
 public:
     Animation();
