@@ -2,11 +2,11 @@ var options = '<option>say</option><option>giveBits</option><option>give</option
 
 function addDialogBox(){
 	// find the last dialog we created
-	var lastDialog = $('npcDialog').last();
+	var lastDialog = $('npc-dialog').last();
 	// get the id from that dialog and add 1
 	var newDialogId = parseInt(lastDialog.attr('dialogId')) + 1;
 	// append a new dialog after that
-	lastDialog.after('<npcDialog dialogId="'+newDialogId.toString()+'"><div style="display:none"><select>'+options+'</select><input type="text" placeholder="Something to do"></input></div></npcDialog>');
+	lastDialog.after('<npc-dialog dialogId="'+newDialogId.toString()+'"><div style="display:none"><select>'+options+'</select><input type="text" placeholder="Something to do"></input></div></npc-dialog>');
 	// find the div from that dialog so we can apply style
 	var newDialog = $('[dialogId="'+newDialogId+'"]').find('div');
 	// show it to the user
@@ -16,21 +16,21 @@ function addDialogBox(){
 function addMasterLabel(myName){
 	myName = myName instanceof Object || myName === undefined ? '' : myName;
 	// find the last dialog we created
-	var lastMaster = $('npcLabelMaster').last();
+	var lastMaster = $('npc-label-master').last();
 	// get the id from that dialog and add 1
-	var newLabelId = parseInt(lastMaster.attr('labelId')) + 1;
+	var newLabelId = parseInt(lastMaster.attr('label-id')) + 1;
 	// append a new dialog after that
-	lastMaster.after('<npcLabelMaster labelId="'+newLabelId+'"><div style="display:none"><div><input value="'+myName+'" class="labelMaster" type="text" placeholder="Label name"></input> <button onclick="addSlaveLabel(\''+newLabelId+'\')">+</button><button onclick="removeSlaveLabel(\''+newLabelId+'\')">-</button></div></div></npcLabelMaster>');
+	lastMaster.after('<npc-label-master label-id="'+newLabelId+'"><div style="display:none"><div><input value="'+myName+'" class="labelMaster" type="text" placeholder="Label name"></input> <button onclick="addSubLabel(\''+newLabelId+'\')">+</button><button onclick="removeSubLabel(\''+newLabelId+'\')">-</button></div></div></npc-label-master>');
 	// find the div from that dialog so we can apply style
-	var newLabel = $('[labelId="'+newLabelId+'"]').find('div').first();
+	var newLabel = $('[label-id="'+newLabelId+'"]').find('div').first();
 	// show it to the user
 	newLabel.slideDown();
-	addSlaveLabel(newLabelId.toString());
+	addSubLabel(newLabelId.toString());
 }
 
 function removeMasterLabel(){
-	var lastMaster = $('npcLabelMaster').last();
-	if(lastMaster.attr('labelId') == '0'){
+	var lastMaster = $('npc-label-master').last();
+	if(lastMaster.attr('label-id') == '0'){
 		lastMaster.find('input').css('background-color', 'red');
 		setTimeout(function(){
 			lastMaster.find('input').css('background-color', '');
@@ -40,48 +40,48 @@ function removeMasterLabel(){
 	lastMaster.slideUp('fast', this.remove);
 }
 
-function addSlaveLabel(masterLabelId, action, value){
+function addSubLabel(masterLabelId, action, value){
 	action = action instanceof Object || action === undefined ? '' : action;
 	value = value instanceof Object || value === undefined ? '' : value;
-	var masterLabel = $('[labelId="'+masterLabelId+'"]').find('div').first();
-	var lastSlave = $(masterLabel).find('npcLabelSlave').last();
-	var newLabelId = lastSlave.length != 0 ? parseInt(lastSlave.attr('slaveId')) + 1 : 0;
-	masterLabel.append('<npcLabelSlave masterId="'+masterLabelId+'" slaveId="'+newLabelId+'"><div style="display:none"><i class="slaveIndicator">&nbsp;</i><select>'+options+'</select> <input type="text" placeholder="Do something"></input></div></npcLabelSlave>')
-	var newSlave = masterLabel.find('[slaveId="'+newLabelId+'"]').find('div').first();
+	var masterLabel = $('[label-id="'+masterLabelId+'"]').find('div').first();
+	var las = $(masterLabel).find('npc-sub-label').last();
+	var newLabelId = las.length != 0 ? parseInt(las.attr('sub-label-id')) + 1 : 0;
+	masterLabel.append('<npc-sub-label master-id="'+masterLabelId+'" sub-label-id="'+newLabelId+'"><div style="display:none"><i class="subLabelIndicator">&nbsp;</i><select>'+options+'</select> <input type="text" placeholder="Do something"></input></div></npc-sub-label>')
+	var newSlave = masterLabel.find('[sub-label-id="'+newLabelId+'"]').find('div').first();
 	newSlave.slideDown();
 }
 
-function addFilledSlaveLabel(masterLabelId){
-	var masterLabel = $('[labelId="'+masterLabelId+'"]').find('div').first();
-	var lastSlave = $(masterLabel).find('npcLabelSlave').last();
-	var newLabelId = lastSlave.length != 0 ? parseInt(lastSlave.attr('slaveId')) + 1 : 0;
-	masterLabel.append('<npcLabelSlave masterId="'+masterLabelId+'" slaveId="'+newLabelId+'"><div style="display:none"><i class="slaveIndicator">&nbsp;</i><select>'+options+'</select> <input type="text" placeholder="Do something"></input></div></npcLabelSlave>')
-	var newSlave = masterLabel.find('[slaveId="'+newLabelId+'"]').find('div').first();
+function addFilledSubLabel(masterLabelId){
+	var masterLabel = $('[label-id="'+masterLabelId+'"]').find('div').first();
+	var las = $(masterLabel).find('npc-sub-label').last();
+	var newLabelId = las.length != 0 ? parseInt(las.attr('sub-label-id')) + 1 : 0;
+	masterLabel.append('<npc-sub-label master-id="'+masterLabelId+'" sub-label-id="'+newLabelId+'"><div style="display:none"><i class="subLabelIndicator">&nbsp;</i><select>'+options+'</select> <input type="text" placeholder="Do something"></input></div></npc-sub-label>')
+	var newSlave = masterLabel.find('[sub-label-id="'+newLabelId+'"]').find('div').first();
 	newSlave.slideDown();
 }
 
-function removeSlaveLabel(masterLabelId){
-	var masterLabel = $('[labelId="'+masterLabelId+'"]').find('div').first();
-	var lastSlave = masterLabel.find('npcLabelSlave').last();
-	if(lastSlave.attr('slaveId') == '0'){
-		lastSlave.find('input').css('background-color', 'red');
+function removeSubLabel(masterLabelId){
+	var masterLabel = $('[label-id="'+masterLabelId+'"]').find('div').first();
+	var las = masterLabel.find('npc-sub-label').last();
+	if(las.attr('sub-label-id') == '0'){
+		las.find('input').css('background-color', 'red');
 		setTimeout(function(){
-			lastSlave.find('input').css('background-color', '');
+			las.find('input').css('background-color', '');
 		}, 100);
 		return false;
 	}
-	lastSlave.slideUp('fast', function(){lastSlave.remove()});
+	las.slideUp('fast', function(){las.remove()});
 }
 
 function addFilledDialogBox(action, str){
 	// find the last dialog we created
 	var dialogs = $('#dialogs').last();
-	var lastDialog = $('npcDialog').last();
+	var lastDialog = $('npc-dialog').last();
 	// console.log(lastDialog);
 	// get the id from that dialog and add 1
 	var newDialogId = lastDialog.length != 0 ? parseInt(lastDialog.attr('dialogId')) + 1 : 0;
 	// append a new dialog after that
-	dialogs.append('<npcDialog dialogId="'+newDialogId.toString()+'"><div style="display:none"><select>'+options+'</select><input type="text" value="'+str+'" placeholder="Something to do"></input></div></npcDialog>');
+	dialogs.append('<npc-dialog dialogId="'+newDialogId.toString()+'"><div style="display:none"><select>'+options+'</select><input type="text" value="'+str+'" placeholder="Something to do"></input></div></npc-dialog>');
 	// find the div from that dialog so we can apply style
 	var newDialog = $('[dialogId="'+newDialogId+'"]').find('div');
 	newDialog.find('select').val(action);
@@ -100,7 +100,7 @@ function getDownloadUrl(str, fileName) {
 }
 
 function removeDialogBox(){
-	var lastDialog = $('npcDialog').last();
+	var lastDialog = $('npc-dialog').last();
 	if(lastDialog.attr('dialogId') == '0'){
 		lastDialog.find('input').css('background-color', 'red');
 		setTimeout(function(){
@@ -125,7 +125,7 @@ function checkInt(e){
 		}
 }
 
-function onload(){
+$(document).ready(function(){
 	// on page load
 	$('#addOne').click(addDialogBox);
 	$('#removeOne').click(removeDialogBox);
@@ -136,7 +136,7 @@ function onload(){
 	$('#posY').keypress(checkInt);
 	$('#posZ').keypress(checkInt);
 	$('#importButton').click(importNpcCode);
-}
+});
 
 function appendLine(txt){
 	$('#npcCode').val($('#npcCode').val() + txt + '\n');
@@ -161,18 +161,18 @@ function generateExportCode(){
 		actions: [],
 		labels: []
 	};
-	$.each($('npcDialog'), function(){
+	$.each($('npc-dialog'), function(){
 		npcJson.actions.push({action: $(this).find('div').find('select').val(), value: $(this).find('div').find('input').val()});
 	});
-	$.each($('npcLabelMaster'), function(){
-		npcJson.labels.push({labelId: $(this).attr('labelId'), labelName: $(this).find('input').first().val(), slaves: []});
-		$.each($(this).find('npcLabelSlave'), function(){
-			var slaveAction = $(this).find('select').first().val();
-			var slaveValue = $(this).find('input').first().val();
-			var masterId = $(this).attr('masterId');
+	$.each($('npc-label-master'), function(){
+		npcJson.labels.push({labelId: $(this).attr('label-id'), labelName: $(this).find('input').first().val(), subLabels: []});
+		$.each($(this).find('npc-sub-label'), function(){
+			var subLabelAction = $(this).find('select').first().val();
+			var subLabelValue = $(this).find('input').first().val();
+			var masterId = $(this).attr('master-id');
 			$.each(npcJson.labels, function(){
-				if(this.labelId === masterId){
-					this.slaves.push({action: slaveAction, value: slaveValue});
+				if(this.label-id === masterId){
+					this.subLabels.push({action: subLabelAction, value: subLabelValue});
 				}
 			});
 		});
@@ -193,7 +193,7 @@ function importNpcCode(){
 		$('#rotZ').val(npcJson.rotZ);
 		$('#rotW').val(npcJson.rotW);
 		$('#npcPonyCode').val(npcJson.ponyCode);
-		$('npcDialog').remove();
+		$('npc-dialog').remove();
 		var dialogCounter = 0;
 		$.each(npcJson.actions, function(){
 			addFilledDialogBox(this.action, this.value);
@@ -224,16 +224,16 @@ function buildNpc(){
 		appendLine('questName ' + $('#npcName').val());
 		appendLine('questDescr ' + $('#npcName').val());
 		appendLine('\n# Actions')
-		$.each($('npcDialog'), function(){
+		$.each($('npc-dialog'), function(){
 			if($(this).find('div').find('input').val().trim() != ''){
 				appendLine($(this).find('div').find('select').val() + ' ' + $(this).find('div').find('input').val());
 			}
 		});
 		appendLine('end \n\n# Labels');
-		$.each($('npcLabelMaster'), function(){
+		$.each($('npc-label-master'), function(){
 			if($(this).find('input').first().val().trim() != ''){
 				appendLine('label ' + $(this).find('input').first().val());
-				$.each($(this).find('npcLabelSlave'), function(){
+				$.each($(this).find('npc-sub-label'), function(){
 					appendLine($(this).find('div').find('select').val() + ' ' + $(this).find('div').find('input').val());
 				});
 				appendLine('end');
